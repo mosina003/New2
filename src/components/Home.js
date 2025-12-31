@@ -14,7 +14,7 @@ function Home() {
 
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const newYear = new Date('December 31, 2025 23:05:00').getTime();
+      const newYear = new Date('January 1, 2026 00:00:00').getTime();
       const now = new Date().getTime();
       const diff = newYear - now;
 

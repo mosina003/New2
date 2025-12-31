@@ -14,23 +14,16 @@ function LoveLetter() {
   const loveNotes = [
     "You make my heart skip a beat every single time I see you! 💓",
     "Your laugh is the most beautiful thing I've ever seen. 😊",
-    "I fall in love with you more and more each day. 💕",
-    "You're my favorite person in the entire world! 🌍",
     "Thank you for being my rock and my safe place. 🏡",
     "Your laugh is my favorite sound in the universe. 😂",
     "I'm so grateful to have you in my life. 🙏",
-    "I love how you always know how to make me smile. 😊",
     "You're not just my boyfriend, you're my best friend. 👫",
-    "Every moment with you is a treasure. 💎",
     "You're the reason I believe in true love. 💖",
-    "I love your kind heart and beautiful soul. ✨",
     "You make me want to be a better person. 🌟",
-    "I'm so lucky to call you mine. 🍀",
     "Your hands are my favorite place to be. 🤗",
     "I love the way you look at me. 👀💕",
     "You're my today and all of my tomorrows. 📅",
-    "I love you more than words can express! 💝",
-    "Forever grateful for you, my love. 💗"
+    
   ];
 
   useEffect(() => {
@@ -49,8 +42,10 @@ function LoveLetter() {
     const availableNotes = loveNotes.filter(note => !pulledNotes.includes(note));
     
     if (availableNotes.length === 0) {
-      // Reset if all notes have been pulled
-      setPulledNotes([]);
+      // All notes have been pulled - navigate to home
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
       return;
     }
 
@@ -59,8 +54,16 @@ function LoveLetter() {
     setTimeout(() => {
       const randomNote = availableNotes[Math.floor(Math.random() * availableNotes.length)];
       setCurrentNote(randomNote);
-      setPulledNotes([...pulledNotes, randomNote]);
+      const newPulledNotes = [...pulledNotes, randomNote];
+      setPulledNotes(newPulledNotes);
       setJarShaking(false);
+      
+      // Check if this was the last note
+      if (newPulledNotes.length === loveNotes.length) {
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
+      }
     }, 500);
   };
 
@@ -183,15 +186,6 @@ function LoveLetter() {
                 </div>
               )}
             </div>
-
-            {pulledNotes.length >= 5 && (
-              <button 
-                className="final-btn morph-button animate-bounce" 
-                onClick={() => navigate('/')}
-              >
-                <span>Start Over ✨</span>
-              </button>
-            )}
           </div>
         )}
       </div>
